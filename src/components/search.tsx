@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { AsyncPaginate } from 'react-select-async-paginate';
 import '../App.css';
 
 export default function Search()
@@ -13,12 +12,15 @@ export default function Search()
     }
 
     return (
-        <div className='search-box'>
-            <input 
-                type='text'
-                className='search-bar'
-                placeholder='Search'
-            />
+        <div className="App">
+            <h1>Look It Worked!</h1>
+            <div className='search-box'>
+                <input 
+                    type='text'
+                    className='search-bar'
+                    placeholder='Search'
+                />
+            </div>
         </div>
     );
 }
