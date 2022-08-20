@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import '../index.css';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
@@ -27,16 +27,17 @@ export default function Search()
     }
 
     const [query, setQuery] = useState('');
-    const [weather, setWeather] = useState({});
+    const [weather, setWeather] = useState<{main: any, name: any, sys: any, weather: any} | undefined>(undefined);
 
     const find = (evt: React.KeyboardEvent) => {
         if(evt.key === "Enter") {
             fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
             .then(res => res.json())
             .then(result => {
-                setWeather(result)
+                setWeather(result);
                 setQuery('');
                 console.log(result);
+                console.log(weather);
             });
         }
     }
@@ -44,7 +45,11 @@ export default function Search()
 
 
     return (
-        <div className="Search">
+        <div className={(typeof weather != "undefined") ? 
+        ((weather.weather[0].main === "Clouds") ? 'Search-Clouds' : 'Search' && 
+        (weather.weather[0].main === "Clear") ? 'Search-Clear' : 'Search' &&
+        (weather.weather[0].main === "Rain") ? 'Search-Rain' : 'Search')
+        : 'Search'}>
             <header>
                 <input 
                     type='text'
@@ -55,7 +60,7 @@ export default function Search()
                     onKeyPress={find}
                 />
             </header>
-            {(typeof weather.main != "undefined") ? (
+            {(typeof weather != "undefined") ? (
                 <div>
                     <div className='location-box'>
                         <div className='location'>
@@ -67,10 +72,10 @@ export default function Search()
                     </div>
                     <div className="weather-box">
                         <div className='temp'>
-                            80°F
+                            {Math.round(weather.main.temp)}°C | {Math.round((weather.main.temp * 1.8) + 32)}°F
                         </div>
-                        <div className='weather'>
-                            Sunny
+                        <div className='weather-condition'>
+                            {weather.weather[0].main}
                         </div>
                     </div>
                 </div>

@@ -12,7 +12,41 @@
 
 .Search {
   text-align: center;
-  background-color: #770933;
+  background-color: #0A4D4B;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.Search-Clouds {
+  text-align: center;
+  background-image: url(./assets/cloudy.gif);
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: calc(10px + 2vmin);
+}
+.Search-Clear {
+  text-align: center;
+  background-image: url(./assets/clear.gif);
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: calc(10px + 2vmin);
+}
+.Search-Rain {
+  text-align: center;
+  background-image: url(./assets/rainy.gif);
+  background-repeat: no-repeat;
+  background-size: cover;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -71,6 +105,7 @@
 
 .location-box {
   justify-content: center;
+  align-items: center;
   padding-bottom: 20px;
   font-size: 35px;
   font-weight: 500;
@@ -81,12 +116,12 @@
 
 .location {
   display: inline-block;
-  padding-right: 100px;
+  padding-right: 50px;
 }
 
 .date {
   display: inline-block;
-  padding-left: 100px;
+  padding-left: 50px;
 }
 
 .weather-box {
@@ -108,7 +143,7 @@
   box-shadow: 3px 6px rgba(0, 0, 0, 0.5);
 }
 
-.weather {
+.weather-condition {
   color: #FFF;
   font-size: 45px;
   font-weight: 600;
