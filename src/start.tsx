@@ -1,25 +1,25 @@
 import React from 'react';
 import logo from './logo.svg';
 import { BrowserRouter, useNavigate } from 'react-router-dom';
-import start from './start';
+import './index.css';
 import './App.css';
-import Start from './start';
 
-const api = {
-  key: "a2afcf79342a908e248e9b85ddc69e4f",
-  base: "https://api.openweathermap.org/data/2.5/"
-}
 
-function App() {
+export default function Start() {
 
     const navigate = useNavigate();
+
     return (
-        <div className="App">
+        <div className="Start">
         <header>
             <h3>Welcome To My Project</h3>
             <h2>React Weather Application</h2>
         </header>
+        <div>
+            <img src="../../logo_Victor.png" alt="Weather-App-Logo" width="50%" height="50%" />
+        </div>
         <button
+            className='Button'
             onClick={() => navigate("/search")}
         >
             Click To Begin
@@ -31,5 +31,3 @@ function App() {
         </div>
     );
 }
-
-export default App;
