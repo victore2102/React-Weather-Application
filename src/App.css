@@ -12,7 +12,9 @@
 
 .Search {
   text-align: center;
-  background-color: #0A4D4B;
+  background-image: url(./assets/default.gif);
+  background-repeat: no-repeat;
+  background-size: cover;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -148,6 +150,10 @@
   font-size: 45px;
   font-weight: 600;
   text-shadow: 3px 6px rgba(50, 50, 70, 0.5);
+}
+
+.filler {
+  margin: 150px;
 }
 
 .App-logo {

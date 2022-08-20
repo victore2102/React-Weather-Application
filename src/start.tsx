@@ -15,13 +15,16 @@ export default function Start() {
             <h3>Welcome To My Project</h3>
             <h2>React Weather Application</h2>
         </header>
+        <div>
+            <img src="../../logo_Victor.png" alt="Weather-App-Logo" width="50%" height="50%" />
+        </div>
         <button
             className='Button'
             onClick={() => navigate("/search")}
         >
             Click To Begin
         </button>
-        <footer className='footer'>
+        <footer>
             <h3>Created By:</h3>
             <h2>Victor Ekpenyong</h2>
         </footer>

@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom';
 
 const api = {
   key: "a2afcf79342a908e248e9b85ddc69e4f",
-  base: "https://api.openweathermap.org/data/2.5/"
+  base: "https://api.openweathermap.org/data/2.5/",
+  base2: "http://api.openweathermap.org/geo/1.0/"
 }
 
 export default function Search()
@@ -37,7 +38,17 @@ export default function Search()
                 setWeather(result);
                 setQuery('');
                 console.log(result);
-                console.log(weather);
+            });
+            fetch(`${api.base2}direct?q=${query}&APPID=${api.key}`)
+            .then(res2 => res2.json())
+            .then(result2 => {
+                console.log(result2);
+                fetch(`${api.base}forecast?lat=${result2[0].lat}&lon=${result2[0].lon}&APPID=${api.key}`)
+                .then(res3 => res3.json())
+                .then(result3 => {
+                console.log(result3);
+                });
+                setQuery('');
             });
         }
     }
@@ -79,7 +90,10 @@ export default function Search()
                         </div>
                     </div>
                 </div>
-            ) : ('')}
+            ) : (
+                <div className='filler'>
+                </div>
+                )}
             <footer className='footer'>
                 <button
                 className='Button'
