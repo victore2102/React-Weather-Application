@@ -115,19 +115,27 @@ export default function Search()
     const [forecastTempCSS4, setForecastTempCSS4] = useState('forecast-temp');
     const [forecastTempCSS5, setForecastTempCSS5] = useState('forecast-temp');
     const [modalOpen, setmodalOpen] = useState(false);
+    const [modalDate, setmodalDate] = useState('');
 
-    function forecastModal() {
-        
-        
+    function forecastModal(date: number) {
         setmodalOpen(true);
-
+        if(date > 0) {
+            let display = forecastDateBuilder(new Date(), date);
+            setmodalDate(display);
+        }
+        else {
+            let display = datebuilder(new Date());
+            setmodalDate(display);
+        }
     }
 
     return (
         <div className={(typeof weather != "undefined") ? 
         ((weather.weather[0].main === "Clouds") ? 'Search-Clouds' : 'Search' && 
         (weather.weather[0].main === "Clear") ? 'Search-Clear' : 'Search' &&
-        (weather.weather[0].main === "Rain") ? 'Search-Rain' : 'Search')
+        (weather.weather[0].main === "Rain") ? 'Search-Rain' : 'Search' &&
+        (weather.weather[0].main === "Mist") ? 'Search-Mist' : 'Search' &&
+        (weather.weather[0].main === "Thunderstorm") ? 'Search-Thunderstorm' : 'Search')
         : 'Search'}>
             <header>
                 <input 
@@ -152,7 +160,7 @@ export default function Search()
                     <div className="weather-box">
                         <button className='modal-button' 
                             onMouseOver={() => setTempCSS('temp-alt')} 
-                            onMouseLeave={() => setTempCSS('temp')} onClick={forecastModal}>
+                            onMouseLeave={() => setTempCSS('temp')} onClick={() => forecastModal(0)}>
                             <div className={tempCSS}>
                                 {Math.round(weather.main.temp)}°C | {Math.round((weather.main.temp * 1.8) + 32)}°F
                             </div>
@@ -165,8 +173,8 @@ export default function Search()
                         <div className='forecast-day'>
                             <button className='modal-button' 
                             onMouseOver={() => setForecastTempCSS1('forecast-temp-alt')} 
-                            onMouseLeave={() => setForecastTempCSS1('forecast-temp')} onClick={forecastModal}>
-                                <div className='date'>
+                            onMouseLeave={() => setForecastTempCSS1('forecast-temp')} onClick={() => forecastModal(1)}>
+                                <div className='date-forecast'>
                                     {forecastDateBuilder(new Date(), 1)}
                                         <div className={forecastTempCSS1}>
                                             {Math.round(weather.main.temp)}°C | {Math.round((weather.main.temp * 1.8) + 32)}°F
@@ -177,8 +185,8 @@ export default function Search()
                         <div className='forecast-day'>
                             <button className='modal-button' 
                             onMouseOver={() => setForecastTempCSS2('forecast-temp-alt')} 
-                            onMouseLeave={() => setForecastTempCSS2('forecast-temp')} onClick={forecastModal}>
-                                <div className='date'>
+                            onMouseLeave={() => setForecastTempCSS2('forecast-temp')} onClick={() => forecastModal(2)}>
+                                <div className='date-forecast'>
                                     {forecastDateBuilder(new Date(), 2)}
                                         <div className={forecastTempCSS2}>
                                             {Math.round(weather.main.temp)}°C | {Math.round((weather.main.temp * 1.8) + 32)}°F
@@ -189,8 +197,8 @@ export default function Search()
                         <div className='forecast-day'>
                             <button className='modal-button' 
                             onMouseOver={() => setForecastTempCSS3('forecast-temp-alt')} 
-                            onMouseLeave={() => setForecastTempCSS3('forecast-temp')} onClick={forecastModal}>
-                                <div className='date'>
+                            onMouseLeave={() => setForecastTempCSS3('forecast-temp')} onClick={() => forecastModal(3)}>
+                                <div className='date-forecast'>
                                     {forecastDateBuilder(new Date(), 3)}
                                         <div className={forecastTempCSS3}>
                                             {Math.round(weather.main.temp)}°C | {Math.round((weather.main.temp * 1.8) + 32)}°F
@@ -201,8 +209,8 @@ export default function Search()
                         <div className='forecast-day'>
                             <button className='modal-button' 
                             onMouseOver={() => setForecastTempCSS4('forecast-temp-alt')} 
-                            onMouseLeave={() => setForecastTempCSS4('forecast-temp')} onClick={forecastModal}>
-                                <div className='date'>
+                            onMouseLeave={() => setForecastTempCSS4('forecast-temp')} onClick={() => forecastModal(4)}>
+                                <div className='date-forecast'>
                                     {forecastDateBuilder(new Date(), 4)}
                                         <div className={forecastTempCSS4}>
                                             {Math.round(weather.main.temp)}°C | {Math.round((weather.main.temp * 1.8) + 32)}°F
@@ -213,8 +221,8 @@ export default function Search()
                         <div className='forecast-day'>
                             <button className='modal-button' 
                             onMouseOver={() => setForecastTempCSS5('forecast-temp-alt')} 
-                            onMouseLeave={() => setForecastTempCSS5('forecast-temp')} onClick={forecastModal}>
-                                <div className='date'>
+                            onMouseLeave={() => setForecastTempCSS5('forecast-temp')} onClick={() => forecastModal(5)}>
+                                <div className='date-forecast'>
                                     {forecastDateBuilder(new Date(), 5)}
                                         <div className={forecastTempCSS5}>
                                             {Math.round(weather.main.temp)}°C | {Math.round((weather.main.temp * 1.8) + 32)}°F
@@ -225,16 +233,19 @@ export default function Search()
                     </div>
                     {(typeof fiveDayForecast != "undefined") ? (
                         <Modal
+                            className="Modal"
                             isOpen={modalOpen}
                             onRequestClose={() => setmodalOpen(false)}
                             ariaHideApp={false}
                         >
                             <div className="weather-box">
-                                <button className='modal-button' onMouseOver={() => setTempCSS('temp-alt')} onMouseLeave={() => setTempCSS('temp')}>
-                                    <div className={tempCSS}>
-                                        222°C | 888°F
-                                    </div>
-                                </button>
+                                <div className='modal-header'>
+                                    {modalDate}
+                                    <button className='close' onClick={() => setmodalOpen(false)}>X</button>
+                                </div>
+                                <div className="temp-alt">
+                                    222°C | 888°F
+                                </div>
                                 <div className='weather-condition'>
                                     {fiveDayForecast.list[0].main.temp - 224}
                                 </div>
