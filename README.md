@@ -1,6 +1,13 @@
-# Getting Started with Create React App
+# Welcome
+
+My name is Victor Ekpenyong, and welcome to my react weather application!
+This project is inteded to serve as a weather app which displays both the current temperature of a city and also a five day forcast of the weather within that same city.
+There are three hour intervals between the different temperatures of a given city displayed.
+
+# Getting Started
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+REST API usuage with https://openweathermap.org/
 
 ## Available Scripts
 
