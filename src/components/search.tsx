@@ -3,6 +3,7 @@ import '../index.css';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
+import BlankSearch from './BlankSearch';
 
 
 const api = {
@@ -267,7 +268,7 @@ export default function Search()
                                 <div className='date-forecast'>
                                     {forecastDateBuilder(new Date(), 1)}
                                         <div className={forecastTempCSS1}>
-                                            {Math.round(weather.main.temp)}°C | {Math.round((weather.main.temp * 1.8) + 32)}°F
+                                            Forecast
                                         </div>
                                 </div>
                             </button>
@@ -279,7 +280,7 @@ export default function Search()
                                 <div className='date-forecast'>
                                     {forecastDateBuilder(new Date(), 2)}
                                         <div className={forecastTempCSS2}>
-                                            {Math.round(weather.main.temp)}°C | {Math.round((weather.main.temp * 1.8) + 32)}°F
+                                            Forecast
                                         </div>
                                 </div>
                             </button>
@@ -291,7 +292,7 @@ export default function Search()
                                 <div className='date-forecast'>
                                     {forecastDateBuilder(new Date(), 3)}
                                         <div className={forecastTempCSS3}>
-                                            {Math.round(weather.main.temp)}°C | {Math.round((weather.main.temp * 1.8) + 32)}°F
+                                            Forecast
                                         </div>
                                 </div>
                             </button>
@@ -303,7 +304,7 @@ export default function Search()
                                 <div className='date-forecast'>
                                     {forecastDateBuilder(new Date(), 4)}
                                         <div className={forecastTempCSS4}>
-                                            {Math.round(weather.main.temp)}°C | {Math.round((weather.main.temp * 1.8) + 32)}°F
+                                            Forecast
                                         </div>
                                 </div>
                             </button>
@@ -315,7 +316,7 @@ export default function Search()
                                 <div className='date-forecast'>
                                     {forecastDateBuilder(new Date(), 5)}
                                         <div className={forecastTempCSS5}>
-                                            {Math.round(weather.main.temp)}°C | {Math.round((weather.main.temp * 1.8) + 32)}°F
+                                            Forecast
                                         </div>
                                 </div>
                             </button>
@@ -335,8 +336,10 @@ export default function Search()
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div className='modal-times'>
+                                <div className='modal-f'>
+                                    <div className='modal-times'>
                                     {forecastTimes[0]}
+                                    </div>
                                     <div className='modal-temps'>
                                     {forecastTemps[0]}
                                     </div>
@@ -344,8 +347,10 @@ export default function Search()
                                     {forecastWeather[0]}
                                     </div>
                                 </div>
-                                <div className='modal-times'>
+                                <div className='modal-f'>
+                                    <div className='modal-times'>
                                     {forecastTimes[1]}
+                                    </div>
                                     <div className='modal-temps'>
                                     {forecastTemps[1]}
                                     </div>
@@ -353,8 +358,10 @@ export default function Search()
                                     {forecastWeather[1]}
                                     </div>
                                 </div>
-                                <div className='modal-times'>
+                                <div className='modal-f'>
+                                    <div className='modal-times'>
                                     {forecastTimes[2]}
+                                    </div>
                                     <div className='modal-temps'>
                                     {forecastTemps[2]}
                                     </div>
@@ -362,8 +369,10 @@ export default function Search()
                                     {forecastWeather[2]}
                                     </div>
                                 </div>
-                                <div className='modal-times'>
+                                <div className='modal-f'>
+                                    <div className='modal-times'>
                                     {forecastTimes[3]}
+                                    </div>
                                     <div className='modal-temps'>
                                     {forecastTemps[3]}
                                     </div>
@@ -371,8 +380,10 @@ export default function Search()
                                     {forecastWeather[3]}
                                     </div>
                                 </div>
-                                <div className='modal-times'>
+                                <div className='modal-f'>
+                                    <div className='modal-times'>
                                     {forecastTimes[4]}
+                                    </div>
                                     <div className='modal-temps'>
                                     {forecastTemps[4]}
                                     </div>
@@ -380,8 +391,10 @@ export default function Search()
                                     {forecastWeather[4]}
                                     </div>
                                 </div>
-                                <div className='modal-times'>
+                                <div className='modal-f'>
+                                    <div className='modal-times'>
                                     {forecastTimes[5]}
+                                    </div>
                                     <div className='modal-temps'>
                                     {forecastTemps[5]}
                                     </div>
@@ -389,8 +402,10 @@ export default function Search()
                                     {forecastWeather[5]}
                                     </div>
                                 </div>
-                                <div className='modal-times'>
+                                <div className='modal-f'>
+                                    <div className='modal-times'>
                                     {forecastTimes[6]}
+                                    </div>
                                     <div className='modal-temps'>
                                     {forecastTemps[6]}
                                     </div>
@@ -398,8 +413,10 @@ export default function Search()
                                     {forecastWeather[6]}
                                     </div>
                                 </div>
-                                <div className='modal-times'>
+                                <div className='modal-f'>
+                                    <div className='modal-times'>
                                     {forecastTimes[7]}
+                                    </div>
                                     <div className='modal-temps'>
                                     {forecastTemps[7]}
                                     </div>
@@ -412,8 +429,7 @@ export default function Search()
                     ) : ('')}
                 </div>
             ) : (
-                <div className='filler'>
-                </div>
+                <BlankSearch />
                 )}
             <footer className='footer'>
                 <button
