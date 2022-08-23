@@ -16,17 +16,7 @@ export default function Search()
 
     const navigate = useNavigate();
 
-    function datebuilder(d: Date) {
-        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-        let day = days[d.getDay()];
-        let date = d.getDate();
-        let month = months[d.getMonth()];
-        let year = d.getFullYear();
-
-        return `${day} ${date} ${month} ${year}`
-    }
+    const [fromModal, setFromModal] = useState(false);
 
     function forecastDateBuilder(d: Date, plus: number) {
         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -38,41 +28,92 @@ export default function Search()
         let year = d.getFullYear();
         let date = d.getDate() + plus;
 
-        if(date > 28) {
-            if(month === "January" || month === "March" || month === "May" || month === "July" || month === "August" || month === "October") {
-                if(date > 31) {
-                    month = months[d.getMonth() + 1];
-                    date = date - 31;
-                }
-            }
-            else if(month === "April" || month === "June" || month === "September" || month === "November") {
-                if(date > 30) {
-                    month = months[d.getMonth() + 1];
-                    date = date - 30;
-                }
-            }
-            else if(month === "February") {
-                if(year % 400 === 0) {
-                    if(date > 29) {
+        if(plus > 0) {
+            if(date > 28) {
+                if(month === "January" || month === "March" || month === "May" || month === "July" || month === "August" || month === "October") {
+                    if(date > 31) {
                         month = months[d.getMonth() + 1];
-                        date = date - 29;
-                    }
-                    else {
-                        month = months[d.getMonth() + 1];
-                        date = date - 28;
+                        date = date - 31;
                     }
                 }
-            }
-            else if(month === "December") {
-                if(date > 31) {
-                    month = "January"
-                    date = date - 31;
-                    year = year + 1;
+                else if(month === "April" || month === "June" || month === "September" || month === "November") {
+                    if(date > 30) {
+                        month = months[d.getMonth() + 1];
+                        date = date - 30;
+                    }
                 }
-            }
-        } 
-
+                else if(month === "February") {
+                    if(year % 400 === 0) {
+                        if(date > 29) {
+                            month = months[d.getMonth() + 1];
+                            date = date - 29;
+                        }
+                        else {
+                            month = months[d.getMonth() + 1];
+                            date = date - 28;
+                        }
+                    }
+                }
+                else if(month === "December") {
+                    if(date > 31) {
+                        month = "January"
+                        date = date - 31;
+                        year = year + 1;
+                    }
+                }
+            } 
+        }
+        
         return `${day} ${date} ${month} ${year}`
+        
+    }
+
+    function dateReturnString(d: Date, plus: number) {
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+        let day = days[(d.getDay() + plus) % 7];
+
+        let month = months[d.getMonth()];
+        let year = d.getFullYear();
+        let date = d.getDate() + plus;
+
+        if(plus > 0) {
+            if(date > 28) {
+                if(month === "January" || month === "March" || month === "May" || month === "July" || month === "August" || month === "October") {
+                    if(date > 31) {
+                        month = months[d.getMonth() + 1];
+                        date = date - 31;
+                    }
+                }
+                else if(month === "April" || month === "June" || month === "September" || month === "November") {
+                    if(date > 30) {
+                        month = months[d.getMonth() + 1];
+                        date = date - 30;
+                    }
+                }
+                else if(month === "February") {
+                    if(year % 400 === 0) {
+                        if(date > 29) {
+                            month = months[d.getMonth() + 1];
+                            date = date - 29;
+                        }
+                        else {
+                            month = months[d.getMonth() + 1];
+                            date = date - 28;
+                        }
+                    }
+                }
+                else if(month === "December") {
+                    if(date > 31) {
+                        month = "January"
+                        date = date - 31;
+                        year = year + 1;
+                    }
+                }
+            } 
+        }
+        return date.toString();
         
     }
 
@@ -119,14 +160,50 @@ export default function Search()
 
     function forecastModal(date: number) {
         setmodalOpen(true);
+        setFromModal(true);
+        console.log("From forecastModal function, FromModal = ", fromModal);
         if(date > 0) {
             let display = forecastDateBuilder(new Date(), date);
+            let d = dateReturnString(new Date(), date);
+            forecastShown(d);
             setmodalDate(display);
         }
         else {
-            let display = datebuilder(new Date());
+            let display = forecastDateBuilder(new Date(), date);
             setmodalDate(display);
         }
+        
+    }
+
+    const [forecastTimes, setForecastTimes] = useState<string[]>([]);
+
+    function forecastShown(d: string) {
+        if(fiveDayForecast != undefined)
+        {
+            let times = [];
+            for(let i = 0; i< 40; i++)
+            {
+                let date = fiveDayForecast.list[i].dt_txt[8] + fiveDayForecast.list[i].dt_txt[9];
+                if(date === d) {
+                    let time = fiveDayForecast.list[i].dt_txt[11] + fiveDayForecast.list[i].dt_txt[12];
+                    console.log(date);
+                    times.push(`${time}:00`);
+                }
+
+            }
+
+            setForecastTimes(times);
+            setFromModal(false);
+            //console.log(times);
+
+        }
+    }
+
+    function modalClose() {
+        setmodalOpen(false);
+        setForecastTimes([]);
+        setmodalDate('');
+
     }
 
     return (
@@ -154,7 +231,7 @@ export default function Search()
                             {weather.name}, {weather.sys.country}
                         </div>
                         <div className='date'>
-                            {datebuilder(new Date())}
+                            {forecastDateBuilder(new Date(), 0)}
                         </div>
                     </div>
                     <div className="weather-box">
@@ -235,7 +312,7 @@ export default function Search()
                         <Modal
                             className="Modal"
                             isOpen={modalOpen}
-                            onRequestClose={() => setmodalOpen(false)}
+                            onRequestClose={modalClose}
                             ariaHideApp={false}
                         >
                             <div className="weather-box">
@@ -244,7 +321,7 @@ export default function Search()
                                     <button className='close' onClick={() => setmodalOpen(false)}>X</button>
                                 </div>
                                 <div className="temp-alt">
-                                    222°C | 888°F
+                                    {forecastTimes}
                                 </div>
                                 <div className='weather-condition'>
                                     {fiveDayForecast.list[0].main.temp - 224}
