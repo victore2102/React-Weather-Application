@@ -13,7 +13,7 @@ export default function Start() {
         <div className="Start">
         <header>
             <h3>Welcome To My Project</h3>
-            <h2>React Weather Application</h2>
+            <h2 className='title'>React Weather Application</h2>
         </header>
         <button
             className='Button'
@@ -24,6 +24,7 @@ export default function Start() {
         <footer>
             <h3>Created By:</h3>
             <h2>Victor Ekpenyong</h2>
+            <h4>2022</h4>
         </footer>
         </div>
     );

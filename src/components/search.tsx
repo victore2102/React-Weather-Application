@@ -3,6 +3,7 @@ import '../index.css';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
+import BlankSearch from './BlankSearch';
 
 
 const api = {
@@ -16,17 +17,7 @@ export default function Search()
 
     const navigate = useNavigate();
 
-    function datebuilder(d: Date) {
-        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-        let day = days[d.getDay()];
-        let date = d.getDate();
-        let month = months[d.getMonth()];
-        let year = d.getFullYear();
-
-        return `${day} ${date} ${month} ${year}`
-    }
+    const [fromModal, setFromModal] = useState(false);
 
     function forecastDateBuilder(d: Date, plus: number) {
         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -38,41 +29,92 @@ export default function Search()
         let year = d.getFullYear();
         let date = d.getDate() + plus;
 
-        if(date > 28) {
-            if(month === "January" || month === "March" || month === "May" || month === "July" || month === "August" || month === "October") {
-                if(date > 31) {
-                    month = months[d.getMonth() + 1];
-                    date = date - 31;
-                }
-            }
-            else if(month === "April" || month === "June" || month === "September" || month === "November") {
-                if(date > 30) {
-                    month = months[d.getMonth() + 1];
-                    date = date - 30;
-                }
-            }
-            else if(month === "February") {
-                if(year % 400 === 0) {
-                    if(date > 29) {
+        if(plus > 0) {
+            if(date > 28) {
+                if(month === "January" || month === "March" || month === "May" || month === "July" || month === "August" || month === "October") {
+                    if(date > 31) {
                         month = months[d.getMonth() + 1];
-                        date = date - 29;
-                    }
-                    else {
-                        month = months[d.getMonth() + 1];
-                        date = date - 28;
+                        date = date - 31;
                     }
                 }
-            }
-            else if(month === "December") {
-                if(date > 31) {
-                    month = "January"
-                    date = date - 31;
-                    year = year + 1;
+                else if(month === "April" || month === "June" || month === "September" || month === "November") {
+                    if(date > 30) {
+                        month = months[d.getMonth() + 1];
+                        date = date - 30;
+                    }
                 }
-            }
-        } 
+                else if(month === "February") {
+                    if(year % 400 === 0) {
+                        if(date > 29) {
+                            month = months[d.getMonth() + 1];
+                            date = date - 29;
+                        }
+                        else {
+                            month = months[d.getMonth() + 1];
+                            date = date - 28;
+                        }
+                    }
+                }
+                else if(month === "December") {
+                    if(date > 31) {
+                        month = "January"
+                        date = date - 31;
+                        year = year + 1;
+                    }
+                }
+            } 
+        }
 
         return `${day} ${date} ${month} ${year}`
+        
+    }
+
+    function dateReturnString(d: Date, plus: number) {
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+        let day = days[(d.getDay() + plus) % 7];
+
+        let month = months[d.getMonth()];
+        let year = d.getFullYear();
+        let date = d.getDate() + plus;
+
+        if(plus > 0) {
+            if(date > 28) {
+                if(month === "January" || month === "March" || month === "May" || month === "July" || month === "August" || month === "October") {
+                    if(date > 31) {
+                        month = months[d.getMonth() + 1];
+                        date = date - 31;
+                    }
+                }
+                else if(month === "April" || month === "June" || month === "September" || month === "November") {
+                    if(date > 30) {
+                        month = months[d.getMonth() + 1];
+                        date = date - 30;
+                    }
+                }
+                else if(month === "February") {
+                    if(year % 400 === 0) {
+                        if(date > 29) {
+                            month = months[d.getMonth() + 1];
+                            date = date - 29;
+                        }
+                        else {
+                            month = months[d.getMonth() + 1];
+                            date = date - 28;
+                        }
+                    }
+                }
+                else if(month === "December") {
+                    if(date > 31) {
+                        month = "January"
+                        date = date - 31;
+                        year = year + 1;
+                    }
+                }
+            } 
+        }
+        return date.toString();
         
     }
 
@@ -119,14 +161,63 @@ export default function Search()
 
     function forecastModal(date: number) {
         setmodalOpen(true);
+        setFromModal(true);
+        console.log("From forecastModal function, FromModal = ", fromModal);
         if(date > 0) {
             let display = forecastDateBuilder(new Date(), date);
+            let d = dateReturnString(new Date(), date);
+            forecastShown(d);
             setmodalDate(display);
         }
         else {
-            let display = datebuilder(new Date());
+            let display = forecastDateBuilder(new Date(), date);
             setmodalDate(display);
         }
+        
+    }
+
+    const [forecastTimes, setForecastTimes] = useState<string[]>([]);
+    const [forecastTemps, setForecastTemps] = useState<string[]>([]);
+    const [forecastWeather, setForecastWeather] = useState<string[]>([]);
+
+    function forecastShown(d: string) {
+        if(fiveDayForecast != undefined)
+        {
+            let times = [];
+            let temps = [];
+            let weather = [];
+            for(let i = 0; i< 40; i++)
+            {
+                let date = fiveDayForecast.list[i].dt_txt[8] + fiveDayForecast.list[i].dt_txt[9];
+                if(date === d) {
+                    let time = fiveDayForecast.list[i].dt_txt[11] + fiveDayForecast.list[i].dt_txt[12];
+                    let tempF = Math.round(fiveDayForecast.list[i].main.temp - 224);
+                    let tempC = Math.round((tempF - 32) * .556);
+                    let w = fiveDayForecast.list[i].weather[0].main;
+                    times.push(`   ${time}:00  `);
+                    temps.push(`${tempC}°C | ${tempF}°F`);
+                    weather.push(`  ${w}    `);
+                }
+
+            }
+
+            setForecastTimes(times);
+            setForecastTemps(temps);
+            setForecastWeather(weather);
+            setFromModal(false);
+            //console.log(times);
+
+        }
+    }
+
+    function modalClose() {
+        setmodalOpen(false);
+        setForecastTimes([]);
+        setmodalDate('');
+        setForecastTemps([]);
+        setForecastTimes([]);
+        setForecastWeather([]);
+
     }
 
     return (
@@ -154,7 +245,7 @@ export default function Search()
                             {weather.name}, {weather.sys.country}
                         </div>
                         <div className='date'>
-                            {datebuilder(new Date())}
+                            {forecastDateBuilder(new Date(), 0)}
                         </div>
                     </div>
                     <div className="weather-box">
@@ -177,7 +268,7 @@ export default function Search()
                                 <div className='date-forecast'>
                                     {forecastDateBuilder(new Date(), 1)}
                                         <div className={forecastTempCSS1}>
-                                            {Math.round(weather.main.temp)}°C | {Math.round((weather.main.temp * 1.8) + 32)}°F
+                                            Forecast
                                         </div>
                                 </div>
                             </button>
@@ -189,7 +280,7 @@ export default function Search()
                                 <div className='date-forecast'>
                                     {forecastDateBuilder(new Date(), 2)}
                                         <div className={forecastTempCSS2}>
-                                            {Math.round(weather.main.temp)}°C | {Math.round((weather.main.temp * 1.8) + 32)}°F
+                                            Forecast
                                         </div>
                                 </div>
                             </button>
@@ -201,7 +292,7 @@ export default function Search()
                                 <div className='date-forecast'>
                                     {forecastDateBuilder(new Date(), 3)}
                                         <div className={forecastTempCSS3}>
-                                            {Math.round(weather.main.temp)}°C | {Math.round((weather.main.temp * 1.8) + 32)}°F
+                                            Forecast
                                         </div>
                                 </div>
                             </button>
@@ -213,7 +304,7 @@ export default function Search()
                                 <div className='date-forecast'>
                                     {forecastDateBuilder(new Date(), 4)}
                                         <div className={forecastTempCSS4}>
-                                            {Math.round(weather.main.temp)}°C | {Math.round((weather.main.temp * 1.8) + 32)}°F
+                                            Forecast
                                         </div>
                                 </div>
                             </button>
@@ -225,7 +316,7 @@ export default function Search()
                                 <div className='date-forecast'>
                                     {forecastDateBuilder(new Date(), 5)}
                                         <div className={forecastTempCSS5}>
-                                            {Math.round(weather.main.temp)}°C | {Math.round((weather.main.temp * 1.8) + 32)}°F
+                                            Forecast
                                         </div>
                                 </div>
                             </button>
@@ -235,27 +326,110 @@ export default function Search()
                         <Modal
                             className="Modal"
                             isOpen={modalOpen}
-                            onRequestClose={() => setmodalOpen(false)}
+                            onRequestClose={modalClose}
                             ariaHideApp={false}
                         >
                             <div className="weather-box">
                                 <div className='modal-header'>
                                     {modalDate}
-                                    <button className='close' onClick={() => setmodalOpen(false)}>X</button>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={modalClose}>
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
-                                <div className="temp-alt">
-                                    222°C | 888°F
+                                <div className='modal-f'>
+                                    <div className='modal-times'>
+                                    {forecastTimes[0]}
+                                    </div>
+                                    <div className='modal-temps'>
+                                    {forecastTemps[0]}
+                                    </div>
+                                    <div className='modal-w'>
+                                    {forecastWeather[0]}
+                                    </div>
                                 </div>
-                                <div className='weather-condition'>
-                                    {fiveDayForecast.list[0].main.temp - 224}
+                                <div className='modal-f'>
+                                    <div className='modal-times'>
+                                    {forecastTimes[1]}
+                                    </div>
+                                    <div className='modal-temps'>
+                                    {forecastTemps[1]}
+                                    </div>
+                                    <div className='modal-w'>
+                                    {forecastWeather[1]}
+                                    </div>
+                                </div>
+                                <div className='modal-f'>
+                                    <div className='modal-times'>
+                                    {forecastTimes[2]}
+                                    </div>
+                                    <div className='modal-temps'>
+                                    {forecastTemps[2]}
+                                    </div>
+                                    <div className='modal-w'>
+                                    {forecastWeather[2]}
+                                    </div>
+                                </div>
+                                <div className='modal-f'>
+                                    <div className='modal-times'>
+                                    {forecastTimes[3]}
+                                    </div>
+                                    <div className='modal-temps'>
+                                    {forecastTemps[3]}
+                                    </div>
+                                    <div className='modal-w'>
+                                    {forecastWeather[3]}
+                                    </div>
+                                </div>
+                                <div className='modal-f'>
+                                    <div className='modal-times'>
+                                    {forecastTimes[4]}
+                                    </div>
+                                    <div className='modal-temps'>
+                                    {forecastTemps[4]}
+                                    </div>
+                                    <div className='modal-w'>
+                                    {forecastWeather[4]}
+                                    </div>
+                                </div>
+                                <div className='modal-f'>
+                                    <div className='modal-times'>
+                                    {forecastTimes[5]}
+                                    </div>
+                                    <div className='modal-temps'>
+                                    {forecastTemps[5]}
+                                    </div>
+                                    <div className='modal-w'>
+                                    {forecastWeather[5]}
+                                    </div>
+                                </div>
+                                <div className='modal-f'>
+                                    <div className='modal-times'>
+                                    {forecastTimes[6]}
+                                    </div>
+                                    <div className='modal-temps'>
+                                    {forecastTemps[6]}
+                                    </div>
+                                    <div className='modal-w'>
+                                    {forecastWeather[6]}
+                                    </div>
+                                </div>
+                                <div className='modal-f'>
+                                    <div className='modal-times'>
+                                    {forecastTimes[7]}
+                                    </div>
+                                    <div className='modal-temps'>
+                                    {forecastTemps[7]}
+                                    </div>
+                                    <div className='modal-w'>
+                                    {forecastWeather[7]}
+                                    </div>
                                 </div>
                             </div>
                         </Modal>
                     ) : ('')}
                 </div>
             ) : (
-                <div className='filler'>
-                </div>
+                <BlankSearch />
                 )}
             <footer className='footer'>
                 <button
