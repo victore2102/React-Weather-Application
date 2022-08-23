@@ -259,8 +259,10 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.35);
   border-radius: 24px;
+  width: 90%;
+  height: 75%;
 }
 
 .modal-button {
@@ -270,23 +272,62 @@
 }
 
 .modal-header {
-  font-size: 35px;
+  font-size: 65px;
   font-weight: 500;
   text-align: center;
-  text-shadow: 3px 3px rgba(11, 9, 9, 0.5);
-  color:#fff;
+  color: #FFF;
+  font-weight: 600;
+  text-shadow: 3px 6px rgba(50, 50, 70, 0.5);
+}
+
+.modal-times {
+  font-size: 45px;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 3px 3px rgba(143, 143, 143, 0.5);
+  color:rgb(0, 0, 0);
+  display: inline-block;
+  border:rgb(0, 0, 0);
+  border-radius: 16px;
+  box-shadow: 3px 6px rgba(0, 0, 0, 0.5);
+  background-color: rgba(6, 6, 6, 0.2);
+  padding: 15px;
+  margin: 15px;
+}
+
+.modal-temps {
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 3px 3px rgba(143, 143, 143, 0.5);
+  color: #FFF;
+  font-size: 60px;
+  font-weight: 800;
+  text-shadow: 3px 6px rgba(50, 50, 70, 0.5);
+}
+
+.modal-w {
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 3px 3px rgba(143, 143, 143, 0.5);
+  color: rgb(0, 0, 0);
+  font-size: 60px;
+  font-weight: 800;
+  text-shadow: 3px 6px rgba(179, 179, 202, 0.5);
 }
 
 .close {
   text-align: center;
-  font-size: 35px;
+  font-size: 45px;
   font-weight: 400;
   color: red;
   border-radius: 24px;
   position: absolute;
-  left: 95%;
+  padding-left: 26%;
   cursor: pointer;
-  background-color: rgba(0, 0, 0, .12);
+  background-color: transparent;
+  border: none;
 }
 
 .App-logo {

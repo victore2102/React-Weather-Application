@@ -63,7 +63,7 @@ export default function Search()
                 }
             } 
         }
-        
+
         return `${day} ${date} ${month} ${year}`
         
     }
@@ -176,23 +176,33 @@ export default function Search()
     }
 
     const [forecastTimes, setForecastTimes] = useState<string[]>([]);
+    const [forecastTemps, setForecastTemps] = useState<string[]>([]);
+    const [forecastWeather, setForecastWeather] = useState<string[]>([]);
 
     function forecastShown(d: string) {
         if(fiveDayForecast != undefined)
         {
             let times = [];
+            let temps = [];
+            let weather = [];
             for(let i = 0; i< 40; i++)
             {
                 let date = fiveDayForecast.list[i].dt_txt[8] + fiveDayForecast.list[i].dt_txt[9];
                 if(date === d) {
                     let time = fiveDayForecast.list[i].dt_txt[11] + fiveDayForecast.list[i].dt_txt[12];
-                    console.log(date);
-                    times.push(`${time}:00`);
+                    let tempF = Math.round(fiveDayForecast.list[i].main.temp - 224);
+                    let tempC = Math.round((tempF - 32) * .556);
+                    let w = fiveDayForecast.list[i].weather[0].main;
+                    times.push(`   ${time}:00  `);
+                    temps.push(`${tempC}°C | ${tempF}°F`);
+                    weather.push(`  ${w}    `);
                 }
 
             }
 
             setForecastTimes(times);
+            setForecastTemps(temps);
+            setForecastWeather(weather);
             setFromModal(false);
             //console.log(times);
 
@@ -203,6 +213,9 @@ export default function Search()
         setmodalOpen(false);
         setForecastTimes([]);
         setmodalDate('');
+        setForecastTemps([]);
+        setForecastTimes([]);
+        setForecastWeather([]);
 
     }
 
@@ -318,13 +331,81 @@ export default function Search()
                             <div className="weather-box">
                                 <div className='modal-header'>
                                     {modalDate}
-                                    <button className='close' onClick={() => setmodalOpen(false)}>X</button>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={modalClose}>
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
-                                <div className="temp-alt">
-                                    {forecastTimes}
+                                <div className='modal-times'>
+                                    {forecastTimes[0]}
+                                    <div className='modal-temps'>
+                                    {forecastTemps[0]}
+                                    </div>
+                                    <div className='modal-w'>
+                                    {forecastWeather[0]}
+                                    </div>
                                 </div>
-                                <div className='weather-condition'>
-                                    {fiveDayForecast.list[0].main.temp - 224}
+                                <div className='modal-times'>
+                                    {forecastTimes[1]}
+                                    <div className='modal-temps'>
+                                    {forecastTemps[1]}
+                                    </div>
+                                    <div className='modal-w'>
+                                    {forecastWeather[1]}
+                                    </div>
+                                </div>
+                                <div className='modal-times'>
+                                    {forecastTimes[2]}
+                                    <div className='modal-temps'>
+                                    {forecastTemps[2]}
+                                    </div>
+                                    <div className='modal-w'>
+                                    {forecastWeather[2]}
+                                    </div>
+                                </div>
+                                <div className='modal-times'>
+                                    {forecastTimes[3]}
+                                    <div className='modal-temps'>
+                                    {forecastTemps[3]}
+                                    </div>
+                                    <div className='modal-w'>
+                                    {forecastWeather[3]}
+                                    </div>
+                                </div>
+                                <div className='modal-times'>
+                                    {forecastTimes[4]}
+                                    <div className='modal-temps'>
+                                    {forecastTemps[4]}
+                                    </div>
+                                    <div className='modal-w'>
+                                    {forecastWeather[4]}
+                                    </div>
+                                </div>
+                                <div className='modal-times'>
+                                    {forecastTimes[5]}
+                                    <div className='modal-temps'>
+                                    {forecastTemps[5]}
+                                    </div>
+                                    <div className='modal-w'>
+                                    {forecastWeather[5]}
+                                    </div>
+                                </div>
+                                <div className='modal-times'>
+                                    {forecastTimes[6]}
+                                    <div className='modal-temps'>
+                                    {forecastTemps[6]}
+                                    </div>
+                                    <div className='modal-w'>
+                                    {forecastWeather[6]}
+                                    </div>
+                                </div>
+                                <div className='modal-times'>
+                                    {forecastTimes[7]}
+                                    <div className='modal-temps'>
+                                    {forecastTemps[7]}
+                                    </div>
+                                    <div className='modal-w'>
+                                    {forecastWeather[7]}
+                                    </div>
                                 </div>
                             </div>
                         </Modal>
