@@ -149,6 +149,7 @@ export default function Search()
                 .then(result3 => {
                     setFiveDayForecast(result3);
                     console.log("FORECAST INFO",result3);
+                    console.log("USE STATE FORECAST",fiveDayForecast);
                 });
                 setQuery('');
             });
@@ -215,16 +216,6 @@ export default function Search()
         }
     }
 
-    function modalClose() {
-        setmodalOpen(false);
-        setForecastTimes([]);
-        setmodalDate('');
-        setForecastTemps([]);
-        setForecastTimes([]);
-        setForecastWeather([]);
-
-    }
-
     return (
         <div className={(typeof weather != "undefined") ? 
         ((weather.weather[0].main === "Clouds") ? 'Search-Clouds' : 'Search' && 
@@ -276,7 +267,11 @@ export default function Search()
                         forecastTimes={forecastTimes}
                         forecastTemps={forecastTemps}
                         forecastWeather={forecastWeather}
-                        modalClose={modalClose}
+                        setmodalOpen={setmodalOpen}
+                        setmodalDate={setmodalDate}
+                        setForecastTimes={setForecastTimes}
+                        setForecastTemps={setForecastTemps}
+                        setForecastWeather={setForecastWeather}
                         />
                     ) : ('')}
                 </div>

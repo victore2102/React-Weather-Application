@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Dispatch, SetStateAction } from 'react';
 import '../index.css';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
@@ -8,13 +8,24 @@ import ModalHeader from './ModalHeader';
 
 
 export default function ForecastModalView(
-{modalOpen, modalDate, forecastTimes, forecastTemps, forecastWeather, modalClose,
+{modalOpen, modalDate, forecastTimes, forecastTemps, forecastWeather, setmodalOpen, setmodalDate, setForecastTimes, setForecastTemps, setForecastWeather,
 }:{
-modalOpen: boolean, modalDate: string, forecastTimes: string[], forecastTemps: string[], forecastWeather: string[], modalClose: (params: any) => any,
+modalOpen: boolean, modalDate: string, forecastTimes: string[], forecastTemps: string[], forecastWeather: string[],
+setmodalOpen: Dispatch<SetStateAction<boolean>>, setmodalDate: Dispatch<SetStateAction<string>>, setForecastTimes: Dispatch<SetStateAction<string[]>>, 
+setForecastTemps: Dispatch<SetStateAction<string[]>>, setForecastWeather: Dispatch<SetStateAction<string[]>>,
 })
 
 
 {
+
+    function modalClose() {
+        setmodalOpen(false);
+        setForecastTimes([]);
+        setmodalDate('');
+        setForecastTemps([]);
+        setForecastTimes([]);
+        setForecastWeather([]);
+    }
 
 
     return (

@@ -6,9 +6,9 @@ import Modal from 'react-modal';
 
 
 export default function ForecastDays(
-{setForecastTempCSS, forecastTempCSS, forecastDateBuilder, forecastModal,
+{setForecastTempCSS, forecastTempCSS, forecastDateBuilder, forecastModal, day,
 }:{
-setForecastTempCSS: Dispatch<SetStateAction<string>>, forecastTempCSS: string, forecastDateBuilder: (param: any, param2: any) => any, forecastModal: (param: any) => any,
+setForecastTempCSS: Dispatch<SetStateAction<string>>, forecastTempCSS: string, forecastDateBuilder: (param: any, param2: any) => any, forecastModal: (param: any) => any, day: number,
 })
 
 
@@ -21,7 +21,7 @@ setForecastTempCSS: Dispatch<SetStateAction<string>>, forecastTempCSS: string, f
             onMouseOver={() => setForecastTempCSS('forecast-temp-alt')} 
             onMouseLeave={() => setForecastTempCSS('forecast-temp')} onClick={() => forecastModal(1)}>
                 <div className='date-forecast'>
-                    {forecastDateBuilder(new Date(), 1)}
+                    {forecastDateBuilder(new Date(), day)}
                         <div className={forecastTempCSS}>
                             Forecast
                         </div>

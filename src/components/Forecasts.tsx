@@ -26,30 +26,35 @@ setForecastTempCSS5: Dispatch<SetStateAction<string>>, forecastTempCSS5: string,
             forecastTempCSS={forecastTempCSS1}
             forecastDateBuilder={forecastDateBuilder}
             forecastModal={forecastModal}
+            day={1}
             />
             <ForecastDays 
             setForecastTempCSS={setForecastTempCSS2}
             forecastTempCSS={forecastTempCSS2}
             forecastDateBuilder={forecastDateBuilder}
             forecastModal={forecastModal}
+            day={2}
             />
             <ForecastDays 
             setForecastTempCSS={setForecastTempCSS3}
             forecastTempCSS={forecastTempCSS3}
             forecastDateBuilder={forecastDateBuilder}
             forecastModal={forecastModal}
+            day={3}
             />
             <ForecastDays 
             setForecastTempCSS={setForecastTempCSS4}
             forecastTempCSS={forecastTempCSS4}
             forecastDateBuilder={forecastDateBuilder}
             forecastModal={forecastModal}
+            day={4}
             />
             <ForecastDays 
             setForecastTempCSS={setForecastTempCSS5}
             forecastTempCSS={forecastTempCSS5}
             forecastDateBuilder={forecastDateBuilder}
             forecastModal={forecastModal}
+            day={5}
             />
         </div>
     );
