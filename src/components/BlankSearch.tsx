@@ -11,6 +11,7 @@ export default function BlankSearch()
 
     return (
         <div>
+            <h2 className='blankH2'>Enter a city to begin</h2>
             <div className='location-box'>
                 <div className='location'>
                     __________, __________

@@ -29,6 +29,13 @@
   text-shadow: 3px 6px rgba(50, 50, 70, 0.5);
 }
 
+.blankH2 {
+  color: white;
+  font-size: 25px;
+  font-weight: 500;
+  text-shadow: 3px 6px rgba(50, 50, 70, 0.5);
+}
+
 .Search-Clouds {
   text-align: center;
   background-image: url(./assets/cloudy.gif);

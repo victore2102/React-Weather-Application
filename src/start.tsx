@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import { BrowserRouter, useNavigate } from 'react-router-dom';
 import './index.css';
 import './App.css';
+import NavButton from './components/NavButton';
 
 
 export default function Start() {
@@ -15,12 +16,11 @@ export default function Start() {
             <h3>Welcome To My Project</h3>
             <h2 className='title'>React Weather Application</h2>
         </header>
-        <button
-            className='Button'
-            onClick={() => navigate("/search")}
-        >
-            Click To Begin
-        </button>
+        <NavButton 
+        navigate={navigate}
+        label={"Click To Begin"}
+        location={"/search"}
+        />
         <footer>
             <h3>Created By:</h3>
             <h2>Victor Ekpenyong</h2>
