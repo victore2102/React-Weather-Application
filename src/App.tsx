@@ -1,9 +1,9 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 import logo from './logo.svg';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
-import Start from './Start';
-import Search from './components/Search';
+import StartPage from './StartPage';
+import SearchPage from './components/SearchPage';
 
 const api = {
   key: "a2afcf79342a908e248e9b85ddc69e4f",
@@ -14,8 +14,8 @@ export default function App(): ReactElement {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Start />} />
-        <Route path="/search" element={<Search />} />
+        <Route path="/" element={<StartPage />} />
+        <Route path="/search" element={<SearchPage />} />
       </Routes>
     </div>
   );

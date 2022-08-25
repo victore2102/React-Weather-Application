@@ -1,8 +1,5 @@
-import React, { useState } from 'react';
 import '../index.css';
 import '../App.css';
-import { useNavigate } from 'react-router-dom';
-import Modal from 'react-modal';
 
 
 export default function BlankSearch()
@@ -11,6 +8,7 @@ export default function BlankSearch()
 
     return (
         <div>
+            <h2 className='blankH2'>Enter a city above to begin</h2>
             <div className='location-box'>
                 <div className='location'>
                     __________, __________
