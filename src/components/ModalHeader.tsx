@@ -1,19 +1,15 @@
-import React, { useState } from 'react';
 import '../index.css';
 import '../App.css';
-import { useNavigate } from 'react-router-dom';
-import Modal from 'react-modal';
 
 
 export default function ModalHeader(
 {modalDate, modalClose,
 }:{
-modalDate: string, modalClose: (params: any) => any,
+modalDate: string, modalClose: () => void,
 })
 
 
 {
-
 
     return (
         <div className='modal-header'>

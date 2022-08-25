@@ -1,8 +1,6 @@
-import React, { useState, Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import '../index.css';
 import '../App.css';
-import { useNavigate } from 'react-router-dom';
-import Modal from 'react-modal';
 import ForecastDays from './ForecastDays';
 
 
@@ -12,7 +10,7 @@ export default function Forecasts(
 }:{
 setForecastTempCSS1: Dispatch<SetStateAction<string>>, forecastTempCSS1: string, setForecastTempCSS2: Dispatch<SetStateAction<string>>, forecastTempCSS2: string,
 setForecastTempCSS3: Dispatch<SetStateAction<string>>, forecastTempCSS3: string, setForecastTempCSS4: Dispatch<SetStateAction<string>>, forecastTempCSS4: string,
-setForecastTempCSS5: Dispatch<SetStateAction<string>>, forecastTempCSS5: string, forecastDateBuilder: (param: any, param2: any) => any, forecastModal: (param: any) => any,
+setForecastTempCSS5: Dispatch<SetStateAction<string>>, forecastTempCSS5: string, forecastDateBuilder: (param: Date, param2: number, param3: number) => string, forecastModal: (param: number) => void,
 })
 
 

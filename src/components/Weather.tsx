@@ -1,14 +1,12 @@
-import React, { useState, Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import '../index.css';
 import '../App.css';
-import { useNavigate } from 'react-router-dom';
-import Modal from 'react-modal';
 
 
 export default function Weather(
 {weather, setTempCSS, tempCSS, forecastModal,
 }:{
-weather: {main: any, name: any, sys: any, weather: any}, setTempCSS: Dispatch<SetStateAction<string>>, tempCSS: string, forecastModal: (param: any) => any,
+weather: {main: any, name: any, sys: any, weather: any}, setTempCSS: Dispatch<SetStateAction<string>>, tempCSS: string, forecastModal: (param: number) => void,
 })
 
 {

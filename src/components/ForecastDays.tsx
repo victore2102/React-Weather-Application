@@ -1,14 +1,12 @@
-import React, { useState, Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import '../index.css';
 import '../App.css';
-import { useNavigate } from 'react-router-dom';
-import Modal from 'react-modal';
 
 
 export default function ForecastDays(
 {setForecastTempCSS, forecastTempCSS, forecastDateBuilder, forecastModal, day,
 }:{
-setForecastTempCSS: Dispatch<SetStateAction<string>>, forecastTempCSS: string, forecastDateBuilder: (param: any, param2: any) => any, forecastModal: (param: any) => any, day: number,
+setForecastTempCSS: Dispatch<SetStateAction<string>>, forecastTempCSS: string, forecastDateBuilder: (param: Date, param2: number, param3: number) => string, forecastModal: (param: number) => void, day: number,
 })
 
 
@@ -19,9 +17,9 @@ setForecastTempCSS: Dispatch<SetStateAction<string>>, forecastTempCSS: string, f
         <div className='forecast-day'>
             <button className='modal-button' 
             onMouseOver={() => setForecastTempCSS('forecast-temp-alt')} 
-            onMouseLeave={() => setForecastTempCSS('forecast-temp')} onClick={() => forecastModal(1)}>
+            onMouseLeave={() => setForecastTempCSS('forecast-temp')} onClick={() => forecastModal(day)}>
                 <div className='date-forecast'>
-                    {forecastDateBuilder(new Date(), day)}
+                    {forecastDateBuilder(new Date(), day, 1)}
                         <div className={forecastTempCSS}>
                             Forecast
                         </div>
