@@ -86,7 +86,14 @@ export default function SearchPage()
             return `${day} ${date} ${month} ${year}`
         }
         else {
-            return date.toString();
+            if(date < 10) {
+                console.log("returned date string : ", "0" + date.toString());
+                return "0" + date.toString();
+            }
+            else {
+                console.log("returned date string : ", date.toString());
+                return date.toString();
+            }
         }
         
     }
@@ -119,16 +126,10 @@ export default function SearchPage()
 
     function forecastModal(date: number) {
         setmodalOpen(true);
-        if(date > 0) {
-            let display = forecastDateBuilder(new Date(), date, 1);
-            let d = forecastDateBuilder(new Date(), date, 2);
-            forecastShown(d);
-            setmodalDate(display);
-        }
-        else {
-            let display = forecastDateBuilder(new Date(), date, 1);
-            setmodalDate(display);
-        }
+        let display = forecastDateBuilder(new Date(), date, 1);
+        let d = forecastDateBuilder(new Date(), date, 2);
+        forecastShown(d);
+        setmodalDate(display);
         
     }
 
@@ -150,7 +151,6 @@ export default function SearchPage()
                     temps.push(`${tempC}°C | ${tempF}°F`);
                     weather.push(`  ${w}    `);
                 }
-
             }
 
             setForecastTimes(times);
