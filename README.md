@@ -4,7 +4,7 @@
 
 ### Created By : Victor Ekpenyong
 
-## Deployed Site - 
+## Deployed Site - https://weather5dfapp2022.netlify.app/
 
 ## Overview
 
