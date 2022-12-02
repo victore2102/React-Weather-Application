@@ -11,7 +11,7 @@ import NavButton from './NavButton';
 
 
 const api = {
-  key: "a2afcf79342a908e248e9b85ddc69e4f",
+  key: process.env.REACT_APP_WEATHER_API_KEY,
   base: "https://api.openweathermap.org/data/2.5/",
   base2: "http://api.openweathermap.org/geo/1.0/"
 }
@@ -134,7 +134,7 @@ export default function SearchPage()
     }
 
     function forecastShown(d: string) {
-        if(fiveDayForecast != undefined)
+        if(fiveDayForecast !== undefined)
         {
             let times = [];
             let temps = [];
