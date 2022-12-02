@@ -14,7 +14,7 @@ import NavButton from './NavButton';
 const api = {
   key: env.REACT_APP_WEATHER_API_KEY,
   base: "https://api.openweathermap.org/data/2.5/",
-  base2: "http://api.openweathermap.org/geo/1.0/"
+  base2: "https://api.openweathermap.org/geo/1.0/"
 }
 
 export default function SearchPage()
