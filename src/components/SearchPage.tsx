@@ -8,10 +8,11 @@ import Forecasts from './Forecasts';
 import Location from './Location';
 import Weather from './Weather';
 import NavButton from './NavButton';
+import env from 'react-dotenv';
 
 
 const api = {
-  key: process.env.REACT_APP_WEATHER_API_KEY,
+  key: env.REACT_APP_WEATHER_API_KEY,
   base: "https://api.openweathermap.org/data/2.5/",
   base2: "http://api.openweathermap.org/geo/1.0/"
 }
